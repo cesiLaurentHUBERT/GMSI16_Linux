@@ -1,64 +1,20 @@
 
 
-# Installation d'un serveur SAMBA
-## Serveur SAMBA
+# Installation d'un serveur FTP
+
+## Serveur FTP
 
 ### Nom de la machine
 
-`<votre nom>-samba` (par exemple : torvalds-samba)
+`<votre nom>-ftp` (par exemple : torvalds-ftp)
 
 ### Partitionnement
 
-Cette machine comportera un disque dur de 3Go séparé en deux partitions:
-une partition `/` et une partition `/home`.
-
-### Configuration
-
-Le serveur SAMBA devra comporter:
-
--   un partage du home de chaque utilisateur
-
--   un partage allusers (positionné dans /srv/samba/allusers)
-
-Les utilisateurs suivants seront configurés sur ce serveur pour accéder
-aux données:
-
--   intervenant
-
--   Pierre
-
--   Paul
-
-
-### Installation
-Un tutoriel vous est donné ici, ainsi que quelques commandes spécifiques à Jessie
-
-#### Commandes de redémarrage
-
-```bash
-sudo systemctl restart smbd
-```
-
-#### Tutoriel
-Vous pouvez tenir compte de ce tutoriel :
-
-https://debian-facile.org/atelier:chantier:samba-partage-reseau
-
-
-
-### Serveur FTP
-
-#### Nom de la machine
-
-`<votre nom>-ftp`
-
-#### Partitionnement
-
-Cette machine comportera un disque dur de 3Go séparé en quatre
+Cette machine comportera un disque dur de 6Go séparé en quatre
 partitions: une partition `/`, une partition `/home`, une partition
 `/var` et `/tmp`.
 
-#### Configuration
+### Configuration
 
 Installez un serveur VSFTPD avec TLS. Si vous utilisez le lien
 ci-dessous, **vous devez tenir compte du paragraphe qui suit pour créer
@@ -66,7 +22,7 @@ le certificat**.
 
 <https://websetnet.com/install-configure-vsftpd-tls-debian-8-jessie>
 
-##### Création du certificat
+#### Création du certificat
 
 La ligne de commande pour créer le certificat est celle-ci (remplace
 celle donnée sur le lien précédent):
@@ -79,7 +35,7 @@ ajoutant/modifiant les lignes suivantes :
     rsa_cert_file=/etc/ssl/private/vsftpd.pem
     rsa_private_key_file=/etc/ssl/private/vsftpd_key.pem
 
-##### Répertoire à accéder
+#### Répertoire à accéder
 
 Les utilisateurs pourront accéder uniquement à un seul répertoire depuis
 leur client FTP. Ce répertoire de base pour vsftpd sera
