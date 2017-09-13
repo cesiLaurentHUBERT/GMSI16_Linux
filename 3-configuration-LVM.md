@@ -182,7 +182,7 @@ Partition type (type L to list all types): L
  b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor
  c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi ea  Rufus alignment
  e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         eb  BeOS fs
- f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ee  GPT
+ f  W95 Ext d (LBA) 54  OnTrackDM6      a6  OpenBSD         ee  GPT
 10  OPUS            55  EZ-Drive        a7  NeXTSTEP        ef  EFI (FAT-12/16/
 11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f0  Linux/PA-RISC b
 12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f1  SpeedStor
@@ -235,7 +235,7 @@ Pour permettre à la partition d'être gérée par LVM, on l'initialise avec la 
 $ sudo pvcreate /dev/sdb1
 WARNING: dos signature detected on /dev/sdb1 at offset 510. Wipe it? [y/n]: y
   Wiping dos signature on /dev/sdb1.
-  Physical volume "/dev/sdb1" successfully created.
+  Physical volume /dev/sdb1 successfully created.
 ```
 
 
@@ -243,7 +243,7 @@ WARNING: dos signature detected on /dev/sdb1 at offset 510. Wipe it? [y/n]: y
 
 ```bash
 $ sudo vgcreate fichiers-vg /dev/sdb1
-  Volume group "fichiers-vg" successfully created
+  Volume group fichiers-vg successfully created
 $ sudo vgdisplay -v fichiers-vg
   --- Volume group ---
   VG Name               fichiers-vg
@@ -273,7 +273,6 @@ $ sudo vgdisplay -v fichiers-vg
   Total PE / Free PE    49 / 49
 
 ```
-
 
 ##### Création du volume logique
 
@@ -490,27 +489,9 @@ Un outil de configuration graphique de gestion pour LVM existe. Il est dans le p
 
 Cependant, il n'est utilisable que par root et il va donc falloir configurer X11 pour transférer le display à root...
 
-Pour cela, vous avez ce script:
+En effet, le problème est qui peut apparaître (`can't open display`) peut avoir plusieurs causes:
 
-```bash
-#!/bin/bash
-#shebang
+    - la session courante n'a pas de `x11 forwarding`
+    - l'autorisation `xauth` n'est pas transmise à root
 
-#première méthode
-#Je récupère le cookie (qui est stocké dans mon .Xauthority dans mon HOME)
-#"mon" == pour l'utilisateur courant
-cookie=`xauth list |grep :$(echo $DISPLAY | cut -d : -f 2 | cut -d . -f 1) `
-#Le guillement inversé ` c'est altgr-7
-echo $cookie
-
-#J'exécute en tant que root la commande suivante:
-#sudo xauth add $cookie #Ne marche pas dans certains cas (Trisquel)
-sudo su <<EOF
-xauth add $cookie
-EOF
-
-```
-
-Ce script doit être sauvé dans un fichier `xforward2root`. Le fichier doit être rendu exécutable grâce à la commande `chmod +x`.
-
-Il pourra être exécuté en lançant la commande `./xforward2root`
+Dans le premier cas, la résolution du problème est simple. Dans le second, il faut se référer à l'annexe concernant la *configuration X pour root*.
