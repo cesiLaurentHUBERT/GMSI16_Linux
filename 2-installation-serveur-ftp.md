@@ -265,6 +265,14 @@ La connexion devrait se faire et afficher le contenu du répertoire:
 
 Essayer de créer un répertoire depuis Filezilla. Que se passe-t-il ? Comment faire pour permettre la création d'un répertoire ?
 
+**Attention**
+
+Il est interdit d'utiliser `chmod 777 ...`
+
+Il existe d'autres possibilités pour cela, et notamment l'utilisation du groupe `ftp`.
+
+Il faut donc trouver une manière de rendre le répertoire `/srv/ftp/allusers` inscriptible par les utilisateurs du serveur FTP avec ces contraintes.
+
 ### En cas d'erreur
 
 En cas d'erreur `Erreur GnuTLS -15: An unexpected TLS packet was received.`
@@ -278,7 +286,7 @@ Sinon:
 sudo mkdir -p /srv/ftp/allusers
 ```
 
-Si l'erreur persiste, rajouter:
+Cette erreur peut aussi être due au refus de VSFTP de laisser le répertoire utilisateur avec les droits en écriture. Dans ce cas, rajouter cette ligne pour l'autoriser:
 
 ```conf
 allow_writeable_chroot=YES
