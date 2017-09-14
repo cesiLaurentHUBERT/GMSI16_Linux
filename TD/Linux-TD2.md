@@ -203,10 +203,11 @@ $ export PATH=${PATH}:/un/nouveau/chemin:/un/autre/chemin
 $
 ```
 
-Vous pouvez connaître la commande qui est exécutée avec la commande `which`. Ici le shell vous indique que la commande ls se trouve dans le répertoire `/bin`
+Vous pouvez connaître la commande qui est exécutée avec la commande `which`. Ici le shell vous indique que la commande `ls` se trouve dans le répertoire `/bin`
 
 ```bash
-$ which ls /bin/ls
+$ which ls
+/bin/ls
 $
 ```
 
