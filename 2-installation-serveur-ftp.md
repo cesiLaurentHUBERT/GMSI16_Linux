@@ -203,11 +203,11 @@ Cette dernière commande demandera des détails:
 
 ```bash
 $ adduser --disabled-login --shell /bin/false --home /var/ftproot/externe externe
-Adding user `externe' ...
-Adding new group `externe' (1001) ...
-Adding new user `externe' (1001) with group `externe' ...
-Creating home directory `/var/ftproot/externe' ...
-Copying files from `/etc/skel' ...
+Adding user 'externe' ...
+Adding new group 'externe' (1001) ...
+Adding new user 'externe' (1001) with group 'externe' ...
+Creating home directory '/var/ftproot/externe' ...
+Copying files from '/etc/skel' ...
 Changing the user information for externe
 Enter the new value, or press ENTER for the default
 	Full Name []:
@@ -230,12 +230,42 @@ sudo adduser --gecos ',,,,' --disabled-login --shell /bin/false --home /var/ftpr
 
 ## Connexion avec Filezilla
 
+Ouvrir le gestionnaire de session:
+
+![filezilla-icone-gestionnaire](images/filezilla-icone-gestionnaire.png)
+
+La fenêtre suivante apparaît:
+
+![filezilla-gestionnaire](images/filezilla-gestionnaire.png)
+
+Créer une session avec le bouton "Nouveau site" et définir les champs suivants:
+
+- Hôte: l'IP de l'hôte
+- Protocole: FTP
+- Chiffrement: connexion FTP explicite sur TLS
+- Type d'authentification: demander le mot de passe
+- Identifiant: externe
+
+
+Cliquer ensuite sur "Connexion".
+
+La fenêtre suivante apparaît:
+
+![filezilla-certificat](images/filezilla-certificat.png)
+
+Examiner attentivement les informations et cliquer sur OK.
+
+La connexion devrait se faire et afficher le contenu du répertoire:
+![filezilla-connexion](images/filezilla-connexion.png)
 
 
 
 
-## Tests
+### Tests
 
+Essayer de créer un répertoire depuis Filezilla. Que se passe-t-il ? Comment faire pour permettre la création d'un répertoire ?
+
+### En cas d'erreur
 
 En cas d'erreur `Erreur GnuTLS -15: An unexpected TLS packet was received.`
 
