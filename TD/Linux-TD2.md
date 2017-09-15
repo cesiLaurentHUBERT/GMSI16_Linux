@@ -295,7 +295,7 @@ Beaucoup d’expansion sont possibles, mais la plus courante est l’expansion d
 
 ```bash
 $ echo ${PATH}
-/usr/local/bin:/usr/bin:/bin:/home/new_pkg/bin/;~/bin
+/usr/local/bin:/usr/bin:/bin:/home/new_pkg/bin
 $
 ```
 
