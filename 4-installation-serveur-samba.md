@@ -63,7 +63,7 @@ On va télécharger le fichier depuis les dépôts Ubuntu (une recherche Web per
 wget http://launchpadlibrarian.net/163794081/system-config-samba_1.2.63-0ubuntu6_all.deb
 ```
 
-On peut maintenance installer ce paquet téléchargé:
+On peut maintenant installer ce paquet téléchargé:
 
 ```bash
 sudo dpkg -i -f sudo dpkg -i system-config-samba_1.2.63-0ubuntu6_all.deb
