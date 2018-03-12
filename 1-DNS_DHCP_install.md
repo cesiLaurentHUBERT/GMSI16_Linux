@@ -286,6 +286,52 @@ options {
 
 ```
 
+#### Mise à jour des DNS
+
+Certains fournisseurs d'accès ou organisation bloquent l'utilisation des DNS externes. Dans ce cas, les machines connectées à la passerelle n'auront pas accès à internet (une erreur de résolution de nom devrait alors apparaître lors d'un ping).
+
+Pour palier à cela, voici une solution permettant de mettre à jour manuellement (par l'appel d'une commande simple) le DNS.
+
+Le fichier  précédent est à modifié en remplaçant la ligne :
+
+```
+forwarders { 8.8.8.8; };
+```
+
+par
+
+```
+include "/etc/bind/named.conf.forwarders";
+```
+
+Créer un fichier nommé `/usr/local/bin/bind9-updateforwarders` et le rendre exécutable :
+
+```bash
+#!/bin/bash
+####################################
+# Author: Laurent HUBERT
+# Licence: GPL
+####################################
+
+#  Récupère la ligne nameserver, et ajoute
+#  pour chacune d'elle une entrée dans le fichier
+#  named.conf.forwarders
+cat /etc/resolv.conf | grep nameserver | awk 'BEGIN{print "forwarders{"}{print "\t"$2";"}END{print "};\n"}' > /etc/bind/named.conf.forwarders
+```
+
+Exécuter ce fichier. Il devrait créer un fichier nommé `/etc/bind/named.conf.forwarders` dont le contenu ressemble à ceci :
+
+```
+forwarders{
+	192.168.21.2;
+};
+```
+
+Relancer le service bind9:
+
+```bash
+sudo systemctl restart bind9
+```
 
 #### Vérification
 ```bash
